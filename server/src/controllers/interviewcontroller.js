@@ -23,7 +23,7 @@ const startInterview = async (req, res) => {
     if (!domain) return res.status(400).json({ message: "Domain is required" });
 
     const completion = await groq.chat.completions.create({
-      model: "llama-3.3-70b-versatile",
+      model: "openai/gpt-oss-120b",
       messages: [
         { role: "system", content: systemPrompt(domain) },
         {
@@ -78,7 +78,7 @@ const submitAnswer = async (req, res) => {
 
     // 1️⃣ Generate feedback on the answer
     const feedbackResponse = await groq.chat.completions.create({
-      model: "llama-3.3-70b-versatile",
+      model: "openai/gpt-oss-120b",
       messages: [
         {
           role: "user",
@@ -119,7 +119,7 @@ Return ONLY the feedback, no additional text.`,
     // ── Complete path ──────────────────────────────────────
     if (isComplete) {
       const scoreResponse = await groq.chat.completions.create({
-        model: "llama-3.3-70b-versatile",
+        model: "openai/gpt-oss-120b",
         messages: [
           {
             role: "user",
@@ -151,7 +151,7 @@ Answer: "${answer}"`,
 
     // ── Continue path ──────────────────────────────────────
     const nextQuestionResponse = await groq.chat.completions.create({
-      model: "llama-3.3-70b-versatile",
+      model: "openai/gpt-oss-120b",
       messages: [
         {
           role: "user",
